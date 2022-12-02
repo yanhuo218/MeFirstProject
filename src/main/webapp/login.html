@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWeb练习</title>
+    <link href="element-ui/index.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <script>
+        const isFHD = screen.width > 1024;
+        (function () {
+            const head = document.getElementsByTagName('HEAD')[0];
+            const style = document.createElement('link');
+            if (isFHD) {
+                style.href = 'css/login_pc.css';
+            } else {
+                style.href = 'css/login_hand.css';
+            }
+            style.type = 'text/css';
+            style.rel = 'stylesheet';
+            head.appendChild(style);
+        })()
+    </script>
+</head>
+<body>
+<div id="app">
+    <div class="register">
+        <el-form :model="account" :rules="rules" ref="ruleForm">
+            <el-form-item prop="username" validate-on-rule-change>
+                <el-input clearable placeholder="请输入邮箱账号" prefix-icon="el-icon-user-solid"
+                          v-model="account.username">
+                    <template slot="prepend">账号</template>
+                </el-input>
+            </el-form-item>
+            <el-form-item prop="password" validate-on-rule-change>
+                <el-input autocomplete="off" placeholder="请输入密码" prefix-icon="el-icon-s-operation" show-password
+                          type="password" v-model="account.password">
+                    <template slot="prepend">密码</template>
+                </el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button :plain="true" @click="submitForm()" style="width: 100%;font-size: 18px" type="primary">登录
+                </el-button>
+                <el-link :underline="false" @click="reset('ruleForm')" style="float:left;font-size: 10px"
+                         type="success">
+                    重置!
+                </el-link>
+                <el-link :underline="false" href="register.html" style="float:right;font-size: 10px"
+                         type="success">
+                    还没有!去注册!
+                </el-link>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/index.js"></script>
+<script src="js/loginUser.js"></script>
+</html>

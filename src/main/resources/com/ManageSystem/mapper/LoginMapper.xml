@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ManageSystem.mapper.LoginMapper">
+    <insert id="addUser">
+        insert into user
+        values (null, #{username}, #{password}, 0, #{detaildata});
+    </insert>
+    <insert id="addData">
+        insert into detaildata
+        values (#{id}, #{portrait}, #{Nicknames}, #{sex}, #{age});
+    </insert>
+    <update id="updataUser">
+        UPDATE detaildata
+        set portrait  = #{portrait},
+            Nicknames = #{Nicknames},
+            sex       = #{sex},
+            age       = #{age}
+        where id = #{id};
+    </update>
+    <select id="loginUserPass" resultType="com.ManageSystem.pojo.User">
+        select *
+        from user
+        where username = #{username}
+          and password = #{password};
+    </select>
+
+    <select id="selectAll" resultType="User">
+        select *
+        from user;
+    </select>
+    <select id="selectSum" resultType="java.lang.Integer">
+        select count(*)
+        from user;
+    </select>
+    <select id="loginUser" resultType="com.ManageSystem.pojo.User">
+        select *
+        from user
+        where username = #{username};
+    </select>
+    <select id="selectId" resultType="java.lang.Integer">
+        select detaildata
+        from user
+        where username = #{username};
+    </select>
+    <select id="selectData" resultType="com.ManageSystem.pojo.DetailData">
+        select *
+        from detaildata
+        where id = #{id};
+    </select>
+    <select id="selectMaxUser" resultType="java.lang.Integer">
+        select count(id)
+        from user;
+    </select>
+</mapper>

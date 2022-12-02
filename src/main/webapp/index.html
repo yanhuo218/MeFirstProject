@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWeb练习</title>
+    <script src="js/vue.js"></script>
+    <link href="element-ui/lib/theme-chalk/index.css" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    body, html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden hidden;
+    }
+
+    .el-header {
+        width: 88%;
+        position: relative;
+        right: -12%;
+        padding: 0;
+    }
+
+    .el-aside {
+        width: 12%;
+        height: 100%;
+        position: relative;
+        right: 88%;
+        border-right: 1px solid #666666;
+    }
+
+    .exitLogin {
+        width: 100%;
+        position: relative;
+        right: -82%;
+    }
+
+    .el-avatar {
+        margin: 30% 30% 0;
+    }
+
+    .user_name {
+        position: relative;
+        top: 0;
+        text-align: center;
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+
+    .avatar-uploader {
+        float: left;
+        width: 178px;
+        height: 178px;
+        margin: 0 20px 30px 0;
+    }
+
+    .el-dialog__body {
+        height: 200px;
+    }
+
+    .el-form {
+        width: 72%;
+        height: 200px;
+        float: left;
+        position: relative;
+    }
+
+    .el-form-item {
+        width: 40%;
+        float: left;
+        margin-right: 10%;
+    }
+
+    .el-select {
+        width: 40%;
+        float: left;
+        position: relative;
+        top: 40px;
+    }
+
+    .el-date-picker {
+        position: absolute;
+        top: 80px;
+        left: 0;
+    }
+</style>
+<body>
+<div id="app" style="width: 100%;height: 100%;">
+
+    <el-container direction="horizontal" style="width: 100%;height: 100%;">
+        <el-header height="15%" style="border-bottom: 1px solid #666666">
+            <div class="exitLogin">
+                <el-button @click="dialogFormVisible = true" type="primary">更改个人信息</el-button>
+                <el-button @click="exitSystem()" type="info">退出登录</el-button>
+            </div>
+        </el-header>
+        <el-dialog :visible.sync="dialogFormVisible" title="修改信息">
+            <el-upload :accept="acceptFile.img"
+                       :auto-upload="false"
+                       :before-upload="uploadImg"
+                       :on-change="UserImg"
+                       :on-success="handleAvatarSuccess" :show-file-list="false"
+                       :with-credentials="true"
+                       action="#"
+                       class="avatar-uploader">
+                <img :src="USER.portrait" alt="por" class="avatar" height="100" v-if="USER.portrait" width="100">
+                <i class="el-icon-plus avatar-uploader-icon" v-else></i>
+            </el-upload>
+            <el-form :model="USER">
+                <el-form-item :label-width="formLabelWidth" label="账号昵称">
+                    <el-input autocomplete="off" v-model="USER.nicknames"></el-input>
+                </el-form-item>
+                <el-select @change="selectSex" placeholder="请选择性别" v-model="defaultSex" value="aa">
+                    <el-option :key="i.value" :label="i.label" :value="i.value" v-for="i in sexT"></el-option>
+                </el-select>
+                <el-date-picker class="el-date-picker"
+                                placeholder="选择生日"
+                                type="date"
+                                v-model="dateOfBirth">
+                </el-date-picker>
+            </el-form>
+            <div class="dialog-footer" slot="footer">
+                <el-button @click="NotamendData()">取 消</el-button>
+                <el-button @click="amendData()" type="primary">确 定</el-button>
+            </div>
+        </el-dialog>
+        <el-aside width="12%">
+            <div class="portrait" id="proHH" ref="porW">
+                <el-avatar :size="74" :src="USER.portrait"></el-avatar>
+            </div>
+            <div class="user_name">
+                <div>{{USER.nicknames}}</div>
+            </div>
+        </el-aside>
+    </el-container>
+</div>
+</body>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<script src="js/index.js"></script>
+</html>
